@@ -1,0 +1,113 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CartComponent } from './cart.component';
+import { CartService } from '../../services/cart.service';
+import { BehaviorSubject, of } from 'rxjs';
+import { Product } from '../../interface/product.interface';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+
+describe('CartComponent', () => {
+  let component: CartComponent;
+  let fixture: ComponentFixture<CartComponent>;
+  let cartService: CartService;
+
+  const mockItems: Product[] = [
+    {
+      id: 1,
+      name: 'Soi Tresse Menue Sling Bag Black',
+      price: 35.99,
+      description:
+        'Say hello to our latest addition to the Soi collection- the Soi Tresse Menue sling bag. Sleek, chic, and always on fleek, this bag is a celebration of individuality and the finesse of craftsmanship.',
+      image:
+        'https://nestasia.in/cdn/shop/files/Slingbag_1_4c87306f-4575-46d4-8f84-48b1a028aca3.jpg?v=1736592212&width=600',
+    },
+    {
+      id: 2,
+      name: 'Croco Black Sling Bag',
+      price: 46.99,
+      description:
+        "This black handheld bag with a sling is a versatile accessory that effortlessly complements your style, making it a fashion essential for every woman. Whether you're running errands or heading out for a night out, it transitions smoothly from AM to PM.",
+      image:
+        'https://nestasia.in/cdn/shop/files/Croco-Black-Sling-Bag_1.jpg?v=1739795636&width=600',
+    },
+    {
+      id: 3,
+      name: 'Sleek Black Shoulder Bag',
+      price: 32.99,
+      description:
+        "Our luxurious matte finish handbag for women is thoughtfully crafted with premium quality vegan leather material. The sturdy strap, embellished with a sleek metal chain, not only elevates the bag's aesthetics but also ensures a robust and enduring accessory.",
+      image:
+        'https://nestasia.in/cdn/shop/files/Handbag_2_f448355a-317a-428f-8903-66fc11ff61f9.jpg?v=1706518975&width=600',
+    },
+    {
+      id: 4,
+      name: 'Soi Lattice Navy Blue Sling Bag',
+      price: 65.99,
+      description:
+        'The Soi Lattice sling bag clutch in navy blue is a stylish statement piece that brings a dash of sophistication and a touch of fun to your outfit. Crafted with premium PU leather, it seamlessly blends style and function, making it the perfect accessory for any occasion.',
+      image:
+        'https://nestasia.in/cdn/shop/files/soi-lattice-navy-blue-sling-bag_11.jpg?v=1734958072&width=600',
+    },
+    {
+      id: 5,
+      name: 'Kaizen Small Travel Backpack',
+      price: 38.99,
+      description:
+        'The Kaizen travel backpack in blue blends practicality with modern aesthetics, making it an ideal companion for everyday journeys or quick getaways. Designed for versatility and durability, it offers smart storage options while maintaining a sleek, lightweight profile.',
+      image:
+        'https://nestasia.in/cdn/shop/files/Kaizen-Small-Travel-Backpack-Navy-Blue_1.jpg?v=1733307904&width=600',
+    },
+  ];
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [CartComponent],
+      providers: [provideHttpClient(), provideHttpClientTesting(), CartService],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(CartComponent);
+    component = fixture.componentInstance;
+    cartService = TestBed.inject(CartService);
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should subscribe to cart items on init', () => {
+    const subject = new BehaviorSubject<Product[]>(mockItems);
+    (cartService as any).items = subject.asObservable();
+
+    component.ngOnInit();
+
+    expect(component.items).toEqual(mockItems);
+  });
+
+  it('should unsubscribe on destroy', () => {
+    const subject = new BehaviorSubject<Product[]>(mockItems);
+    (cartService as any).items = subject.asObservable();
+
+    component.ngOnInit();
+    const unsubscribeSpy = spyOn(
+      component['cartItemSubscription'],
+      'unsubscribe'
+    );
+
+    component.ngOnDestroy();
+
+    expect(unsubscribeSpy).toHaveBeenCalled();
+  });
+
+  it('should call cartService.removeItem when removeFromCart is called', () => {
+    const removeItemSpy = spyOn(cartService, 'removeItem');
+    component.removeFromCart(1);
+    expect(removeItemSpy).toHaveBeenCalledWith(1);
+  });
+
+  it('should call cartService.addItem when setItemQuantity is called', () => {
+    const product: Product = mockItems[1];
+    const addItemSpy = spyOn(cartService, 'addItem');
+    component.setItemQuantity(product, 'add');
+    expect(addItemSpy).toHaveBeenCalledWith(product, 'add', 'cart');
+  });
+});

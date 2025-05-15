@@ -1,0 +1,59 @@
+<div
+  class="w-full flex flex-col justify-center items-center mt-8 font-semibold"
+>
+  <div class="w-3/5 flex flex-col gap-10">
+    <div
+      class="w-full flex justify-between items-center p-4 border border-gray-100 rounded-md"
+    >
+      <p>Product</p>
+      <div class="flex gap-10">
+        <p>Price</p>
+        <p>Quantity</p>
+        <p>Total Item Price</p>
+        <p>Action</p>
+      </div>
+    </div>
+    <div
+      *ngFor="let item of items"
+      class="flex justify-between items-center border border-gray-100 rounded-md shadow-md p-2 pr-4"
+    >
+      <div class="flex gap-8 items-center">
+        <img src="{{ item.image }}" alt="" class="w-[100px] h-[100px]" />
+        <p>{{ item.name }}</p>
+      </div>
+      <div class="flex gap-18">
+        <p>{{ item.price | currency : "USD" : "symbol" : "1.2-2" }}</p>
+        <div class="flex gap-2">
+          <button
+            [disabled]="!item.quantity || item.quantity < 2"
+            (click)="setItemQuantity(item, 'subtract')"
+            class="w-[25px] h-[25px] cursor-pointer bg-green-700 rounded-md flex justify-center items-center text-green-100 disabled:bg-gray-400 disabled:cursor-not-allowed"
+          >
+            -
+          </button>
+          <p>{{ item.quantity ? item.quantity : 1 }}</p>
+          <button
+            (click)="setItemQuantity(item, 'add')"
+            class="w-[25px] h-[25px] cursor-pointer bg-green-700 rounded-md flex justify-center items-center text-green-100 disabled:bg-gray-400 disabled:cursor-not-allowed"
+          >
+            +
+          </button>
+        </div>
+        <p>
+          {{
+            item.quantity
+              ? (item.price * item.quantity
+                | currency : "USD" : "symbol" : "1.2-2")
+              : 0
+          }}
+        </p>
+        <p
+          (click)="removeFromCart(item.id)"
+          class="cursor-pointer text-red-600"
+        >
+          <i class="fa-solid fa-trash"></i>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
