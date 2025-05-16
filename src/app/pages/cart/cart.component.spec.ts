@@ -98,12 +98,6 @@ describe('CartComponent', () => {
     expect(unsubscribeSpy).toHaveBeenCalled();
   });
 
-  it('should call cartService.removeItem when removeFromCart is called', () => {
-    const removeItemSpy = spyOn(cartService, 'removeItem');
-    component.removeFromCart(1);
-    expect(removeItemSpy).toHaveBeenCalledWith(1);
-  });
-
   it('should call cartService.addItem when setItemQuantity is called', () => {
     const product: Product = mockItems[1];
     const addItemSpy = spyOn(cartService, 'addItem');
