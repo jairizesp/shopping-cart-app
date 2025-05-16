@@ -32,6 +32,9 @@ This application is a shopping cart app that has a list of static values stored 
 
 User will be able to add and remove items from the cart.
 User can also manipulate item quantities.
-Notification for how many items in the cart is display on the Navigation bar right beside the Cart link
+Badge Notification for how many items in the cart is displayed on the Navigation bar right beside the Cart link
+Display checked out items in checkouts page
+
+Time spent is around 8-10hrs since I also had to learn new structure for Angular 19 :D
 
 I don't own any of the pictures used in this test project.
