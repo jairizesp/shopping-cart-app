@@ -1,0 +1,35 @@
+<div class="my-4 flex flex-col gap-4 font-semibold">
+  <h1 class="font-bold text-2xl">Checked Out Items</h1>
+  <div
+    class="w-full flex justify-between items-center p-4 border border-gray-100 rounded-md"
+  >
+    <p>Product</p>
+    <div class="flex gap-4 md:gap-10">
+      <p>Price</p>
+      <p>Quantity</p>
+      <p>Total Item Price</p>
+    </div>
+  </div>
+
+  <div
+    *ngFor="let item of checkedOutItems"
+    class="flex justify-between items-center border border-gray-100 rounded-md shadow-md p-2 pr-6"
+  >
+    <div class="flex gap-8 items-center">
+      <img src="{{ item.image }}" alt="" class="w-[100px] h-[100px]" />
+      <p class="hidden md:flex">{{ item.name }}</p>
+    </div>
+    <div class="flex gap-4 md:gap-18">
+      <p>{{ item.price | currency : "USD" : "symbol" : "1.2-2" }}</p>
+      <p>{{ item.quantity ? item.quantity : 1 }}</p>
+      <p>
+        {{
+          item.quantity
+            ? (item.price * item.quantity
+              | currency : "USD" : "symbol" : "1.2-2")
+            : 0
+        }}
+      </p>
+    </div>
+  </div>
+</div>

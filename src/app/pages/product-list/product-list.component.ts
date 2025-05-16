@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../interface/product.interface';
 import { Subscription } from 'rxjs';
-import { ProductComponent } from '../product/product.component';
+import { ProductComponent } from '../../components/product/product.component';
 
 @Component({
   selector: 'app-product-list',

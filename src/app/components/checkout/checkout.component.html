@@ -1,0 +1,66 @@
+<div class="flex flex-col gap-8">
+  <app-toast #toastRef></app-toast>
+  <div class="flex items-center justify-between flex-wrap">
+    <p class="text-2xl font-bold">
+      TOTAL:
+      {{ totalCheckoutPrice | currency : "USD" : "symbol" : "1.2-2" }}
+      <span *ngIf="hasDiscount == 'true'" class="line-through text-red-400">{{
+        originalPrice | currency : "USD" : "symbol" : "1.2-2"
+      }}</span>
+
+      <span
+        *ngIf="hasDiscount == 'true'"
+        class="ml-4 text-green-500 text-sm font-semibold"
+        >Saved 10%</span
+      >
+    </p>
+
+    <div class="flex gap-4 items-center">
+      <p class="text-blue-500">
+        Got a promo code?
+        <i
+          class="fas fa-circle-info"
+          title="Promo codes are case sensitive. Please provide the exact promo codes."
+        ></i>
+      </p>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="flex items-center gap-4">
+          <input
+            class="px-4 py-2 rounded-md text-slate-700 font-normal outline-0 border border-slate-200"
+            [ngClass]="{
+              'border-red-500':
+                form.controls['promoCode'].invalid &&
+                form.controls['promoCode'].touched
+            }"
+            type="text"
+            placeholder="Enter promo code here."
+            formControlName="promoCode"
+          />
+          <button
+            [disabled]="!items.length"
+            type="submit"
+            class="px-4 py-2 cursor-pointer bg-orange-700 text-orange-100 hover:bg-orange-200 hover:text-orange-700 active:scale-95 rounded-md disabled:bg-gray-400 disabled:scale-100 disabled:cursor-not-allowed"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div
+    class="w-full flex justify-between"
+    [ngClass]="{ 'justify-end': hasDiscount == 'false' }"
+  >
+    <h6 *ngIf="hasDiscount == 'true'">
+      Promo codes used: <span class="font-semibold text-green-400">SAVE10</span>
+    </h6>
+
+    <button
+      (click)="checkout()"
+      [disabled]="!items.length"
+      class="px-4 py-2 rounded-md bg-orange-500 text-white cursor-pointer hover:bg-orange-200 hover:text-orange-700 active:scale-95 disabled:bg-gray-400 disabled:scale-100 disabled:cursor-not-allowed"
+    >
+      Checkout
+    </button>
+  </div>
+</div>

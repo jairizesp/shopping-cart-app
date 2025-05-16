@@ -1,27 +1,30 @@
 <div
-  class="w-full flex flex-col justify-center items-center mt-8 font-semibold"
+  class="w-full flex flex-col justify-center items-center my-8 font-semibold"
 >
-  <div class="w-3/5 flex flex-col gap-10">
+  <app-toast #toastRef></app-toast>
+  <div class="w-full xl:w-3/5 lg:w-4/5 flex flex-col gap-10">
+    <app-checkout *ngIf="items.length" [items]="items"></app-checkout>
     <div
       class="w-full flex justify-between items-center p-4 border border-gray-100 rounded-md"
     >
       <p>Product</p>
-      <div class="flex gap-10">
+      <div class="flex gap-4 md:gap-10">
         <p>Price</p>
         <p>Quantity</p>
         <p>Total Item Price</p>
         <p>Action</p>
       </div>
     </div>
+
     <div
       *ngFor="let item of items"
-      class="flex justify-between items-center border border-gray-100 rounded-md shadow-md p-2 pr-4"
+      class="flex justify-between items-center border border-gray-100 rounded-md shadow-md p-2 pr-6"
     >
       <div class="flex gap-8 items-center">
         <img src="{{ item.image }}" alt="" class="w-[100px] h-[100px]" />
-        <p>{{ item.name }}</p>
+        <p class="hidden md:flex">{{ item.name }}</p>
       </div>
-      <div class="flex gap-18">
+      <div class="flex gap-4 md:gap-18">
         <p>{{ item.price | currency : "USD" : "symbol" : "1.2-2" }}</p>
         <div class="flex gap-2">
           <button

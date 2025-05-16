@@ -10,50 +10,28 @@ To start a local development server, run:
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+To start a json server, run:
 
 ```bash
-ng generate component component-name
+npm run json-server
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+To start unit test in headless mode, run:
 
 ```bash
-ng generate --help
+npm run test
 ```
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+To start unit test with browser, run:
 
 ```bash
 ng test
 ```
 
-## Running end-to-end tests
+This application is a shopping cart app that has a list of static values stored in json server.
 
-For end-to-end (e2e) testing, run:
+User will be able to add and remove items from the cart.
+User can also manipulate item quantities.
+Notification for how many items in the cart is display on the Navigation bar right beside the Cart link
 
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+I don't own any of the pictures used in this test project.

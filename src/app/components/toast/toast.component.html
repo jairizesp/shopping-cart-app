@@ -1,0 +1,14 @@
+<div class="toast-container">
+  <div
+    *ngFor="let toast of toasts"
+    class="toast"
+    [ngClass]="{
+      'bg-green-500': toast.status === 'success',
+      'bg-red-500': toast.status === 'error',
+      'bg-yellow-500': toast.status === 'warning'
+    }"
+    [class.show]="toast.visible"
+  >
+    {{ toast.message }}
+  </div>
+</div>
