@@ -3,10 +3,10 @@ import { StorageService } from '../../services/storage.service';
 import { CommonModule, NgFor } from '@angular/common';
 
 @Component({
-  selector: 'app-checkout',
+  selector: 'app-checkout-page',
   imports: [NgFor, CommonModule],
-  templateUrl: './checkout.component.html',
-  styleUrl: './checkout.component.css',
+  templateUrl: './checkout-page.component.html',
+  styleUrl: './checkout-page.component.css',
 })
 export class CheckoutPageComponent {
   constructor(private storageService: StorageService) {}

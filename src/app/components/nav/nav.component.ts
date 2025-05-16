@@ -29,7 +29,11 @@ export class NavComponent implements OnInit, OnDestroy {
     this.cartItemsSubscription?.unsubscribe();
   }
 
+  get cartItems() {
+    return (this.storageService.getStorage('cart-items') || []).length;
+  }
+
   get checkOutItems() {
-    return this.storageService.getStorage('checkout_items').length;
+    return (this.storageService.getStorage('checkout_items') || []).length;
   }
 }

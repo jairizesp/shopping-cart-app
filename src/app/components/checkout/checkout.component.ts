@@ -92,7 +92,10 @@ export class CheckoutComponent implements OnInit {
     const promoCode = this.storageService.getStorage('promo_code');
 
     if (this.form.valid) {
-      if (this.form.value['promoCode'] === promoCode && this.has_discount) {
+      if (
+        this.form.value['promoCode'] === promoCode &&
+        this.hasDiscount == 'true'
+      ) {
         this.showNotification('Promo code already used.');
         return;
       }
